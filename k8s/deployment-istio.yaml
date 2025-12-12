@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service
+  labels:
+    app: customer-service
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-service
+  template:
+    metadata:
+      labels:
+        app: customer-service
+        version: v2
+      annotations:
+        # Prometheus scraping annotations for application metrics
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      # ============================================================
+      # SERVICE MESH PATTERN: Istio Auto-Injection
+      # ============================================================
+      # Key Differences from Manual Sidecar:
+      # 1. Only ONE container defined (customer-service)
+      # 2. Istio automatically injects envoy sidecar at runtime
+      # 3. No manual sidecar configuration needed
+      # 4. Envoy provides: logging, metrics, tracing, mTLS, traffic management
+      # 5. Zero code changes in application
+      # ============================================================
+      
+      containers:
+      # ============================================================
+      # Application Container (Simplified)
+      # ============================================================
+      - name: customer-service
+        image: customer-service:2.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 9090
+          protocol: TCP
+        
+        # Kubernetes health checks
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 9090
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      
+      # ============================================================
+      # NO SIDECAR DEFINED!
+      # ============================================================
+      # Istio will automatically inject the envoy sidecar because:
+      # 1. Namespace has label: istio-injection=enabled
+      # 2. Istio mutating webhook intercepts pod creation
+      # 3. Envoy container is added automatically
+      # 
+      # After deployment, you'll see 2/2 containers:
+      # - customer-service (your app)
+      # - istio-proxy (envoy - auto-injected)
+      # ============================================================
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-service
+  labels:
+    app: customer-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 9090
+    protocol: TCP
+    name: http
+  selector:
+    app: customer-service
+

@@ -1,0 +1,90 @@
+# Java / Maven
+customer-service/target/
+customer-service/*.jar
+customer-service/*.war
+customer-service/*.class
+customer-service/.mvn/
+customer-service/mvnw
+customer-service/mvnw.cmd
+
+# Python
+logging-sidecar/__pycache__/
+logging-sidecar/*.pyc
+logging-sidecar/*.pyo
+logging-sidecar/*.pyd
+logging-sidecar/.Python
+logging-sidecar/venv/
+logging-sidecar/env/
+logging-sidecar/.venv/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Kubernetes
+*.kubeconfig
+.kube/
+
+# Docker
+.dockerignore
+
+# OS
+Thumbs.db
+
+# Istio (downloaded binary - should be in .gitignore)
+# Note: We keep istio-1.28.1/ for now as it's part of the learning repo
+# In production, you would install Istio via package manager or Helm
+# istio-*/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+istio-1.28.1/
+diagrams/
+*.drawio
+.idea
+.vscode
+docs/*
+
+target
