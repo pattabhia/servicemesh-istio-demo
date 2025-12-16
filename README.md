@@ -20,23 +20,7 @@ This repository contains a **fully functional observability stack** that you can
 
 ---
 
-## 🎯 Learning Journey
-
-This repository takes you through **3 phases** of evolution:
-
-### Phase 1: Manual Sidecar Pattern (Learning)
-
-- ✅ Custom Python logging sidecar
-- ✅ Manual integration with Spring Boot
-- ✅ Understanding the fundamentals
-
-### Phase 2: Service Mesh Migration (Production)
-
-- ✅ Istio installation and configuration
-- ✅ Automatic Envoy sidecar injection
-- ✅ Simplified application code
-
-### Phase 3: Complete Observability (Enterprise)
+### Complete Observability (Enterprise)
 
 - ✅ Logs: Fluent Bit → Loki → Grafana
 - ✅ Metrics: Prometheus → Grafana
