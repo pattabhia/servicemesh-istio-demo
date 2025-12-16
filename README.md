@@ -1,6 +1,6 @@
 # Service Mesh Demo: Complete E2E Observability Stack
 
-A **production-grade**, learning-focused repository demonstrating the evolution from **manual Sidecar Pattern** to **Service Mesh** with complete observability using **Istio, Grafana, Loki, Prometheus, and Jaeger**.
+A learning-focused repository demonstrating the **Service Mesh** with complete observability using **Istio, Grafana, Loki, Prometheus, and Jaeger**.
 
 ## ✅ What's Deployed and Working
 
